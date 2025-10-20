@@ -1,0 +1,45 @@
+body{
+    background-color: #D9D9D9;
+    margin: 0;
+    padding: 100px;
+}
+
+/* 入力や選択を行う部分 */
+#tags{
+    background-color: #F0F0F0;
+}
+
+/* タグが入ってるとこ */
+#tag-zone{
+    display: flex;
+    flex-wrap: wrap;    /* 折り返しに必要 */
+}
+
+/* 各タグ */
+.tag{
+    margin: 10px;
+    padding: 5px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* タグの入力部分が入っているdiv */
+.input{
+    margin: 10px;
+    margin-top: 25px;
+}
+
+#tag-input{
+    width: 80%;
+    height: 2rem;
+}
+
+/* 戻ると追加・編集・削除のボタン */
+button{
+    margin: 20px 15%;
+    width: 10em;
+    height:3em;
+    font-size: 15px;
+    background-color: #ffffff;
+    border: 0;
+}

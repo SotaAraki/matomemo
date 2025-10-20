@@ -1,0 +1,61 @@
+body{
+    background-color: #D9D9D9;
+    margin: 0;
+    padding: 80px;
+    padding-right: 150px;
+}
+
+/* タイトル検索のinputと検索ボタン(img)が入ったdiv ふたつを横並びにするために使った */
+.side-title{
+    display:flex;
+    padding-left: 8%;
+}
+
+/* タイトル検索のinput */
+#title-search{
+    margin-right: 2%;
+}
+
+/* 検索とタグ追加のアイコンを右寄せするためにアイコンを囲ったdiv */
+.img-button{
+    text-align: right;
+}
+
+/* 画像 */
+.icon{
+    width: 30px;
+}
+
+/* インプットが入ってるdiv */
+#input{
+    text-align: center;
+}
+
+/* タイトルの入力部分 */
+input{
+    width: 100%;
+    height: 2rem;
+}
+
+/* input上の説明テキスト */
+p{
+    text-align: left;
+    padding-left: 8%;
+}
+
+/* タグが入ってるとこ */
+#add-tag-zone{
+    text-align: left;
+    padding-left: 8%;
+}
+
+/* 検索結果のテキスト */
+.search-results{
+    text-align: center;
+}
+
+/* 検索結果をまとめたdiv */
+#add-search-zone{
+    margin-left: 8%;
+    background-color: #ffffff;
+}

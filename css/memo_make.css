@@ -1,0 +1,56 @@
+body{
+    background-color: #D9D9D9;
+    margin: 0;
+    padding: 80px;
+}
+
+/* インプットひとつひとつを入れているdivタグ */
+#input{
+    text-align: center;
+}
+
+/* input上の説明テキスト */
+p{
+    text-align: left;
+    padding-left: 10%;
+}
+
+/* 入力部分全体 */
+input{
+    width: 80%;
+}
+
+/* タイトルinput */
+#title{
+    height: 2rem;
+}
+
+/* 本文input */
+#main-text{
+    height: 8rem;
+}
+
+/* 要約 */
+#summary{
+    height: 2rem;
+}
+
+/* 画像 */
+.icon{
+    width: 40px;
+    margin-left: 80%;
+}
+
+/* タグが入るとこ */
+#add-tag-zone{
+    text-align: left;
+    margin-left: 10%;
+}
+
+/* 戻る作成のボタン */
+button{
+    margin: 0 15% 0 15%;
+    width: 10em;
+    height:3em;
+    font-size: 15px;
+}
