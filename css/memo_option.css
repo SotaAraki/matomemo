@@ -1,0 +1,36 @@
+body{
+    background-color: #D9D9D9;
+    margin: 0;
+    padding: 100px;
+}
+
+/* 設定項目をすべて入れているdiv */
+#settings{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 116px;  /* タイトル画面と同じように縦方向に中央揃えするための余白 */
+}
+
+/* aタグ */
+a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content; /* 親幅に引きずられない */
+  text-decoration: none;  /* 画像下の文字リンクの下線を消す */
+  margin: 0 auto;
+}
+
+
+/* 画像 */
+.icon{
+    width: 200px;
+}
+
+/* 画像下の説明テキスト */
+.icon-text{
+    text-align: center;
+    color: #000000; /* 画像下文字の色付け */
+    font-size: 20px;
+}
