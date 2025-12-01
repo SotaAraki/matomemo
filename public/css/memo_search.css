@@ -19,6 +19,7 @@ body{
 /* 検索とタグ追加のアイコンを右寄せするためにアイコンを囲ったdiv */
 .img-button{
     text-align: right;
+    cursor: pointer;    /* 検索用 */
 }
 
 /* 画像 */
@@ -54,8 +55,11 @@ p{
     text-align: center;
 }
 
-/* 検索結果をまとめたdiv */
-#add-search-zone{
-    margin-left: 8%;
+/* 検索されたアイテムが入っているdiv */
+.search-item{
+    margin: 10px 0 10px 8%;
+    padding: 10px;
     background-color: #ffffff;
+    border-radius: 10px;      /* 角丸 */
+    border: 1px solid #ccc;
 }

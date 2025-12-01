@@ -4,7 +4,7 @@ function homeButton() {
     const homeButton = document.createElement("a");     // ホームボタンが入るタaタグ
     homeButton.className = "home-button";               // ホームボタンのclass
     homeButton.href = "title.html";                     // ホームへのリンク
-
+    // ホームボタンの画像
     const home_img = document.createElement("img");     // img要素を作成
     home_img.src = "image/home_button.png";             // 画像を追加
     home_img.className = "img-style";                   // imgのクラス
@@ -13,16 +13,16 @@ function homeButton() {
     // メニューボタン
     const menuButton = document.createElement("a");     // メニューボタンが入るタaタグ
     menuButton.className = "menu-button";               // メニューボタンのclass
-
+    // メニューボタンの画像
     const menu_img = document.createElement("img");     // img要素を作成
     menu_img.src = "image/menu_button.png";             // 画像を追加
     menu_img.className = "img-style";                   // imgのクラス
     menuButton.appendChild(menu_img);                   // 親に画像を追加
 
     // モーダル
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    modal.style.display = "none";
+    const modal = document.createElement("div");        // モーダルが入るdivタグ
+    modal.className = "modal";                          // モーダルのclass
+    modal.style.display = "none";                       // モーダルを非表示
 
     // モーダルの中身
     const modalContent = document.createElement("div");
@@ -61,18 +61,24 @@ function homeButton() {
     // モーダル関係の処理
     // メニューボタンを押した時の処理
     menuButton.addEventListener("click", () => {
+        console.log("メニューボタンをクリック");    // 確認用
+
         modal.style.display = "flex"; // 表示（flexで中央寄せ）
         setTimeout(() => modal.classList.add("show"), 10); // アニメーション用クラス追加
     });
 
     // 「閉じる」ボタンで閉じる
     modalContent.querySelector("#close-btn").addEventListener("click", () => {
+        console.log("閉じるボタンをクリック");    // 確認用
+
         modal.classList.remove("show");
         setTimeout(() => modal.style.display = "none", 400); // アニメ終了後に非表示
     });
 
     // 背景クリックでも閉じる
     window.addEventListener("click", (e) => {
+        console.log("背景クリック（閉じる）");    // 確認用
+
         if (e.target === modal) {
             modal.classList.remove("show");
             setTimeout(() => modal.style.display = "none", 400);
@@ -117,7 +123,7 @@ const cardStyle = `
         width: 50%;
         max-height: 100%;
         text-align: left;
-        background-color: white;    /* モーダルの背景色 */
+        background-color: #ffffff;    /* モーダルの背景色 */
         z-index: 1000;              /* 全面表示 */
 
         overflow-y: auto;   /* スクロール可能 */
@@ -175,5 +181,8 @@ document.head.appendChild(styleTag);
 
 // htmlが読み込まれたら勝手に発動するやつ
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("ホームボタンなどを読み込み");    // 確認用
     homeButton();
+    // モーダル非表示
+    // document.getElementById("detail-modal").querySelector(".modal").style.display = "none";
 });
