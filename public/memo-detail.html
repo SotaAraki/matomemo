@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/memo_make.css">
-    <title>メモ作成</title>
+    <title>メモ詳細・編集</title>
 </head>
 <body>
     <!-- タイトル入力 -->
@@ -31,9 +31,12 @@
     <!-- ボタン -->
     <div id="input">
         <button id="back">戻る</button>
-        <button id="make">作成</button>
+        <button id="update">更新</button>
     </div>
+    
     <script src="js/home_button.js"></script>
-    <script src="js/memo_make.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/memo-detail.js"></script> <!-- importを使用しているのでtype="module"が必要 -->
+    
 </body>
 </html>

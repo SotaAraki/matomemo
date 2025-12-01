@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/memo_make.css">
+    <title>メモ作成</title>
+</head>
+<body>
+    <!-- タイトル入力 -->
+    <div id="input">
+        <p>タイトル</p>
+        <input type="text" id="title">
+    </div>
+    <!-- 本文入力 -->
+    <div id="input">
+        <p>本文</p>
+        <input type="text" id="main-text">
+    </div>
+    <!-- 要約入力 -->
+    <div id="input">
+        <p>要約</p>
+        <input type="text" id="summary">
+    </div>
+    <!-- タグ追加部分 -->
+    <div id="input">
+        <p>タグ</p>
+        <div id="add-tag-zone">test-tag</div> <!-- タグ追加場所 -->
+        <a href=""><img src="image/add_tag_button.png" alt="タグ追加" class="icon"></a>
+    </div>
+    <!-- ボタン -->
+    <div id="input">
+        <button id="back">戻る</button>
+        <button id="make">作成</button>
+    </div>
+    <script src="js/home_button.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/memo_make.js"></script>
+</body>
+</html>
