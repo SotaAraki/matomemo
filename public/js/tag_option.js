@@ -30,7 +30,7 @@ if (from === "tag_create") tag_button.textContent = "作成";
 else if (from === "tag_add") tag_button.textContent = "追加";
 else if (from === "tag_search") tag_button.textContent = "検索";
 
-// -------------------- タグ読み込み --------------------
+// タグ読み込み
 async function loadAllTags() {
     tag_zone.innerHTML = "<p>読み込み中...</p>";
     try {
@@ -54,6 +54,10 @@ async function loadAllTags() {
 
 // ボタンを押した時の処理 
 tag_button.addEventListener("click", async () => { 
+    // 共通で選択したタグの保存
+    sessionStorage.setItem("localTags", JSON.stringify(localTags));
+    console.log("保存されたタグ:", localTags);
+
     // fromの中身によって処理を変える 
     switch (from) { 
         // タグの作成 
@@ -62,10 +66,11 @@ tag_button.addEventListener("click", async () => {
         break; 
         // タグの追加処理 // 
         case "tag_add": 
-        await tagAdd(); 
+        window.location.href = "memo_make.html";
         break; 
         // タグの検索 
         case "tag_search": 
+        await tagSearch();
         break; 
     } 
 })
@@ -96,14 +101,20 @@ async function tagCreate() {
 // -------------------- タグ選択 --------------------
 // sessionStorageに保存する配列
 let localTags = JSON.parse(sessionStorage.getItem("localTags")) || [];
+let tags = JSON.parse(sessionStorage.getItem("tags")) || [];
 
 function tagAdd() {
+    // .tag クラスがついたすべての要素（タグ）を取得
     const tags = document.querySelectorAll(".tag");
+    // タグひとつひとつを回していく（クリックイベントのため）
     tags.forEach(tagEl => {
+        // タグひとつひとつにクリックイベント（選択するため）
         tagEl.addEventListener("click", () => {
+            // クリックされたタグの情報をオブジェクトにまとめる
             const tagData = { id: tagEl.dataset.docId, name: tagEl.textContent };
+            // localTags に同じIDのタグがすでにあるか確認
             const exists = localTags.some(t => t.id === tagData.id);
-
+            // localTags に同じIDのタグがすでにあるか確認
             if (!exists) {
                 localTags.push(tagData);
                 tagEl.classList.add("selected");
@@ -115,33 +126,49 @@ function tagAdd() {
     });
 }
 
+// -------------------- タグ検索 --------------------
+function tagSearch(){
+    // 選択されたタグ名だけを配列にする
+    const selectedTagNames = localTags.map(t => t.name);
+
+    // sessionStorage に保存
+    sessionStorage.setItem("searchTags", JSON.stringify(selectedTagNames));
+
+    console.log("検索用タグ保存:", selectedTagNames);
+
+    // 検索画面へ戻る
+    window.location.href = "memo_search.html";
+}
+
 // 既に選択されているタグを選択済みにする
 function selectTags() {
     document.querySelectorAll(".tag").forEach(tagEl => {
         if (localTags.some(t => t.id === tagEl.dataset.docId)) {
             tagEl.classList.add("selected");
+        }else if(tags.includes(tagEl.textContent)){
+            tagEl.classList.add("selected");
         }
     });
 }
 
-// 決定ボタン
-tag_button.addEventListener("click", () => {
-    // sessionStorage に保存
-    sessionStorage.setItem("localTags", JSON.stringify(localTags));
-    console.log("保存されたタグ:", localTags);
+// // 決定ボタン
+// tag_button.addEventListener("click", () => {
+//     // sessionStorage に保存
+//     sessionStorage.setItem("localTags", JSON.stringify(localTags));
+//     console.log("保存されたタグ:", localTags);
 
-    // 画面遷移（from に応じて変更可）
-    if (from === "tag_add") {
-        window.location.href = "memo_make.html";
-    } else if (from === "tag_create") {
-        // 作成画面ならリロードして最新タグを表示
-        tag_button.textContent = "作成";
-        document.getElementById("tag-input").value = "";
-        loadAllTags();
-        selectTags();
-        tagAdd();
-    }
-});
+//     // 画面遷移（from に応じて変更可）
+//     if (from === "tag_add") {
+//         window.location.href = "memo_make.html";
+//     } else if (from === "tag_create") {
+//         // 作成画面ならリロードして最新タグを表示
+//         tag_button.textContent = "作成";
+//         document.getElementById("tag-input").value = "";
+//         loadAllTags();
+//         selectTags();
+//         tagAdd();
+//     }
+// });
 
 // ページ読み込み時
 window.addEventListener("load", async () => {
