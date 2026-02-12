@@ -1,0 +1,25 @@
+body{
+    background-color: #D9D9D9;
+    margin: 0;
+    padding: 80px;
+}
+
+/* input上の説明テキスト */
+p{
+    text-align: left;
+    padding-left: 10%;
+}
+
+/* タグが入るとこ */
+#add-tag-zone{
+    text-align: left;
+    margin-left: 10%;
+}
+
+/* 戻る作成のボタン */
+button{
+    margin: 0 15% 0 15%;
+    width: 10em;
+    height:3em;
+    font-size: 15px;
+}

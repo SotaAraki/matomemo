@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/memo_edit.css">
+    <title>メモ</title>
+</head>
+<body>
+    <!-- タイトル -->
+    <div>
+        <p>タイトル</p>
+        <p id="title">test</p>
+    </div>
+    <!-- 本文 -->
+    <div>
+        <p>本文</p>
+        <p id="main-text">test</p>
+    </div>
+    <!-- 要約 -->
+    <div>
+        <p>要約</p>
+        <p id="summary">test</p>
+    </div>
+    <!-- タグ追加部分 -->
+    <div>
+        <p>タグ</p>
+        <div id="add-tag-zone"></div> <!-- タグ追加場所 -->
+        <!-- <a href="tag_option.html?from=tag_add" id="tag_add"><img src="image/add_tag_button.png" alt="タグ追加" class="icon"></a> -->
+    </div>
+    <!-- ボタン -->
+    <div id="input">
+        <button id="back">戻る</button>
+        <button id="edit">編集</button>
+    </div>
+    <script src="js/home_button.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/memo_edit.js"></script>
+</body>
+</html>
