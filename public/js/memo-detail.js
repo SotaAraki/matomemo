@@ -111,7 +111,7 @@ function loadMemononakamis(){
   const id_text = sessionStorage.getItem("id");            // ID
   const title_text = sessionStorage.getItem("title");      // タイトル
   const text = sessionStorage.getItem("text");             // 本文
-  const tags = sessionStorage.getItem("tags");             // タグ
+  const tags = JSON.parse(sessionStorage.getItem("tags")) || []; // タグ
   const summary_text = sessionStorage.getItem("summary");  // 要約
   console.log(
     "id:", id_text, 
@@ -127,22 +127,33 @@ function loadMemononakamis(){
   const add_tag_zone = document.getElementById("add-tag-zone");
   const summary = document.getElementById("summary");
 
-  // input に値を入れる
+  // inputに値を入れる
   title.value = title_text;
   main_text.value = text;
   summary.value = summary_text;
 
-  // タグを再生成
-  add_tag_zone.innerHTML = ""; // タグを一旦クリア
-  if (tags) {
-    const localTags = JSON.parse(tags);
-    localTags.forEach(tag => {
-      const span = document.createElement("span");
-      span.classList.add("tag", "selected");
-      span.textContent = tag.name;
-      add_tag_zone.appendChild(span);
-    });
-  }
+  // タグのinput
+  // 1つずつ中身を取り出す
+  tags.forEach(tag => {
+    // タグを入れるpを作る
+    const p = document.createElement("p");
+    p.textContent = tag;   // 名前入力
+    p.classList.add("tag");     // class付ける
+    p.dataset.docId = tag;   // id付ける
+    add_tag_zone.appendChild(p);    // タグ入れるとこにpを入れる
+  });
+
+  // // タグを再生成
+  // add_tag_zone.innerHTML = ""; // タグを一旦クリア
+  // if (tags) {
+  //   const localTags = JSON.parse(tags);
+  //   localTags.forEach(tag => {
+  //     const span = document.createElement("span");
+  //     span.classList.add("tag", "selected");
+  //     span.textContent = tag.name;
+  //     add_tag_zone.appendChild(span);
+  //   });
+  // }
 }
 
 // ページ読み込み時の処理
@@ -164,23 +175,22 @@ window.addEventListener("DOMContentLoaded", () => {
   // });
 
   // sessionStorage から選択済みタグを取得
-const selectedTags = JSON.parse(sessionStorage.getItem("localTags")) || [];
+  const selectedTags = JSON.parse(sessionStorage.getItem("localTags")) || [];
+  // タグ一覧の要素を取得
+  const allTagElements = document.querySelectorAll("#tag-zone .tag");
 
-// タグ一覧の要素を取得
-const allTagElements = document.querySelectorAll("#tag-zone .tag");
+  // 選択済みかどうかを判定して selected クラスを付与
+  allTagElements.forEach(tagEl => {
+    if (selectedTags.some(t => t.name === tagEl.textContent)) {
+      tagEl.classList.add("selected");
+    } else {
+      tagEl.classList.remove("selected");
+    }
 
-// 選択済みかどうかを判定して selected クラスを付与
-allTagElements.forEach(tagEl => {
-  if (selectedTags.some(t => t.name === tagEl.textContent)) {
-    tagEl.classList.add("selected");
-  } else {
-    tagEl.classList.remove("selected");
-  }
-
-  // クリックで選択切替も追加
-  tagEl.addEventListener("click", () => {
-    tagEl.classList.toggle("selected");
+    // クリックで選択切替も追加
+    tagEl.addEventListener("click", () => {
+      tagEl.classList.toggle("selected");
+    });
   });
-});
 
 });
