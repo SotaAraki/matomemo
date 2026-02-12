@@ -43,3 +43,10 @@ button{
     background-color: #ffffff;
     border: 0;
 }
+
+/* タグを線タウした時の見た目処理 */
+.tag.selected {
+  background: #4f46e5;   /* 青 */
+  color: white;
+  border-color: #4f46e5;
+}

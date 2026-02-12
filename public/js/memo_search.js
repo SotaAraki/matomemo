@@ -1,5 +1,7 @@
 // firebaseの初期化（ないとエラー？）
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { db } from "./firebase.js";
+
 // 必要なfirebaseの機能をインポート
 import {
   getFirestore,
@@ -9,20 +11,20 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Firebaseプロジェクトの接続の情報
-const firebaseConfig = {
-  apiKey: "AIzaSyDYmi7yqSSPU1mtd0gTmTifhmLQPvCqYCQ",
-  authDomain: "matomemo-45d64.firebaseapp.com",
-  projectId: "matomemo-45d64",
-  storageBucket: "matomemo-45d64.firebasestorage.app",
-  messagingSenderId: "23202501961",
-  appId: "1:23202501961:web:0bbcd482e5ac5923a23698",
-  measurementId: "G-CYJSJZZEV1"
-};
+// Firebaseプロジェクトの接続の情報(多分公開しても後悔しないやつなのでenvしなくていい)
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDYmi7yqSSPU1mtd0gTmTifhmLQPvCqYCQ",
+//   authDomain: "matomemo-45d64.firebaseapp.com",
+//   projectId: "matomemo-45d64",
+//   storageBucket: "matomemo-45d64.firebasestorage.app",
+//   messagingSenderId: "23202501961",
+//   appId: "1:23202501961:web:0bbcd482e5ac5923a23698",
+//   measurementId: "G-CYJSJZZEV1"
+// };
 
 // Firestoreに接続するのに使う
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
 // 各要素を取得（検索バー・検索ボタン・結果表示エリアなど）
 const titleInput = document.getElementById("title-search");
@@ -64,10 +66,6 @@ async function loadAllMemos() {
       // 結果表示エリアに追加
       resultZone.appendChild(itemDiv);
     });
-
-    // 1件もなければ
-    if (querySnapshot.empty) { resultZone.innerHTML = "<p>メモが登録されていません。</p>"; }
-
   } catch (e) {
     // エラーが起きた場合の処理
     console.error("Firestore 読み込みエラー:", e);
@@ -97,7 +95,8 @@ async function searchMemos() {
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       const title = data.title?.toLowerCase() || "";
-      const tags = data.tags?.toLowerCase() || "";
+      // const tags = data.tags?.toLowerCase() || "";
+      const tags = (data.tags || []).join(" ").toLowerCase();
       const summary = data.summary || data.text || "";
 
       if (title.includes(keyword) || tags.includes(keyword)) {
@@ -109,7 +108,7 @@ async function searchMemos() {
         itemDiv.innerHTML = `
           <div class="search-title">${data.title}</div>
           <div class="search-text" style="display:none;">${data.text || ""}</div>
-          <div class="search-tag">${data.tags}</div>
+          <div class="search-tag">${(data.tags || []).join(", ")}</div>
           <div class="search-summary">${summary}</div>
         `;
         resultZone.appendChild(itemDiv);
@@ -146,14 +145,19 @@ function attachClickEvents() {
       // 各項目をアイテムの中から取得
       const title = item.querySelector(".search-title").textContent;      // タイトル
       const text = item.querySelector(".search-text").textContent;        // 本文
-      const tag = item.querySelector(".search-tag").textContent;          // タグ
+      // const tag = item.querySelector(".search-tag").textContent;       
+      // タグ
+      const tags = Array.from(
+        item.querySelector(".search-tag").textContent.split(",")
+      ).map(t => t.trim()).filter(Boolean);
       const summary = item.querySelector(".search-summary").textContent;  // 要約
 
       // sessionStorageに保存
       sessionStorage.setItem("id", item.dataset.docId);
       sessionStorage.setItem("title", title);
       sessionStorage.setItem("text", text);
-      sessionStorage.setItem("tag", tag);
+      // sessionStorage.setItem("tag", tag);
+      sessionStorage.setItem("tags", JSON.stringify(tags));
       sessionStorage.setItem("summary", summary);
 
       // 画面遷移
@@ -165,7 +169,7 @@ function attachClickEvents() {
 // ページ読み込み時に実行
 window.addEventListener("load", async () => {
   console.log("ページ読み込み");  // 確認用
-  await loadAllMemos();   // Firebaseからアイテムを取得して画面に追加
+  await loadAllMemos();   // Firebaseからメモを取得して画面に追加
   attachClickEvents();    // 取得した要素にイベントを付ける
 });
 
