@@ -2,7 +2,7 @@
 function homeButton() {
     // ホームボタン
     const homeButton = document.createElement("a");     // ホームボタンが入るタaタグ
-    homeButton.className = "home-button";               // ホームボタンのclass
+    homeButton.className = "moveScreen home-button";    // ホームボタンのclass
     homeButton.href = "title.html";                     // ホームへのリンク
     // ホームボタンの画像
     const home_img = document.createElement("img");     // img要素を作成
@@ -32,19 +32,19 @@ function homeButton() {
         <!-- ボタンまとめdiv -->
         <div id="mo-as">
             <!-- メモ作成 -->
-            <a href="memo_make.html">
+            <a href="memo_make.html" class = "moveScreen">
                 <img src="image/memo_make.png" alt="メモ作成" class="mo-icon">
                 <p class="mo-icon-text">メモ作成</p>
             </a>
             <hr>    <!-- 横線 -->
             <!-- メモ検索 -->
-            <a href="memo_search.html">
+            <a href="memo_search.html" class = "moveScreen">
                 <img src="image/memo_search.png" alt="メモ検索" class="mo-icon">
                 <p class="mo-icon-text">メモ検索</p>
             </a>
             <hr>
             <!-- 設定 -->
-            <a href="memo_option.html">
+            <a href="memo_option.html" class = "moveScreen">
                 <img src="image/memo_settings.png" alt="設定" class="mo-icon">
                 <p class="mo-icon-text">設定</p>
             </a>
@@ -77,13 +77,14 @@ function homeButton() {
 
     // 背景クリックでも閉じる
     window.addEventListener("click", (e) => {
-        console.log("背景クリック（閉じる）");    // 確認用
-
         if (e.target === modal) {
             modal.classList.remove("show");
             setTimeout(() => modal.style.display = "none", 400);
         }
     });
+
+    // 画面遷移時にlocalstorageにあるタグを消したりする
+    deleteLocaltag();
 }
 
 // css関係の処理
@@ -178,6 +179,28 @@ styleTag.textContent = cardStyle;
 // <head>内に<style>タグを追加し、ページ全体にCSSを適用
 document.head.appendChild(styleTag);
 
+// 画面遷移した時にlocalにあるタグのやつを消したりするよ
+function deleteLocaltag(){
+    // 画面が遷移されるボタンを押した時にlocalstorageを削除して重複しないようにする
+    // 複数（ホームボタンから各画面のボタンまで）あるので配列で入手
+    const moveButtons = document.querySelectorAll(".moveScreen");
+    moveButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            // localstorageの削除
+            // localStorage.removeItem("localTags");   // メモ作成とかに入ってるタグ
+            // console.log("localのtagを削除");
+
+            // sessionstorageの削除
+            // 今後sessionStorageにメモ機能以外を入れるのであれば全部消さないようにする
+            // sessionStorage.removeItem("title");
+            // sessionStorage.removeItem("text");
+            // sessionStorage.removeItem("localTags");
+            // sessionStorage.removeItem("summary");
+            sessionStorage.clear();  // 全部
+            console.log("sessionstorageを削除");
+        });
+    });
+}
 
 // htmlが読み込まれたら勝手に発動するやつ
 document.addEventListener("DOMContentLoaded", () => {
