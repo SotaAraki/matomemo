@@ -39,6 +39,7 @@ updateButton.addEventListener("click", async () => {
   console.log("メモ更新をクリック");  // 確認用
 
   // 入力内容を取得
+  const id_text = sessionStorage.getItem("id");
   const title = document.getElementById("title").value;             // タイトル入力欄の値
   const mainText = document.getElementById("main-text").value;      // 本文入力欄の値
   const summary = document.getElementById("summary").value;         // 要約入力欄の値
@@ -161,36 +162,19 @@ window.addEventListener("DOMContentLoaded", () => {
   // sessionstorageの中身をとりだしたりするよ
   loadMemononakamis();
 
-  // // 選んだタグを表示するコード
-  // // タグを置くところ
-  // const tag_zone = document.getElementById("add-tag-zone");
-  // // タグを入れる配列 localStorageからタグを取得（なければ空）
-  // const tags = JSON.parse(sessionStorage.getItem("localTags")) || [];
-  // // 1つずつ中身を取り出す
-  // tags.forEach(tagName => {
-  //   const p = document.createElement("p");  // タグを入れるpを作る
-  //   p.textContent = tag.name;               // 名前入力
-  //   p.classList.add("tag");                 // class付ける
-  //   tag_zone.appendChild(p);                // タグ入れるとこにpを入れる
-  // });
-
-  // sessionStorage から選択済みタグを取得
-  const selectedTags = JSON.parse(sessionStorage.getItem("localTags")) || [];
-  // タグ一覧の要素を取得
-  const allTagElements = document.querySelectorAll("#tag-zone .tag");
-
-  // 選択済みかどうかを判定して selected クラスを付与
-  allTagElements.forEach(tagEl => {
-    if (selectedTags.some(t => t.name === tagEl.textContent)) {
-      tagEl.classList.add("selected");
-    } else {
-      tagEl.classList.remove("selected");
-    }
-
-    // クリックで選択切替も追加
-    tagEl.addEventListener("click", () => {
-      tagEl.classList.toggle("selected");
-    });
+  // 選んだタグを表示するコード
+  // タグを置くところ
+  const add_tag_zone = document.getElementById("add-tag-zone");
+  add_tag_zone.innerHTML = "";
+  // タグを入れる配列 sessionStorageからタグを取得（なければ空）
+  const tags = JSON.parse(sessionStorage.getItem("localTags")) || [];
+  // 1つずつ中身を取り出す
+  tags.forEach(tag => {
+    // タグを入れるpを作る
+    const p = document.createElement("p");
+    p.textContent = tag.name;   // 名前入力
+    p.classList.add("tag");     // class付ける
+    p.dataset.docId = tag.id;   // id付ける
+    add_tag_zone.appendChild(p);    // タグ入れるとこにpを入れる
   });
-
 });

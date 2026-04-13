@@ -27,7 +27,8 @@ console.log("from:", from); // 確認用
 
 // ボタン文言設定
 if (from === "tag_create") tag_button.textContent = "作成";
-else if (from === "tag_add") tag_button.textContent = "追加";
+else if (from === "tag_add_make") tag_button.textContent = "追加";
+else if (from === "tag_add_detail") tag_button.textContent = "追加";
 else if (from === "tag_search") tag_button.textContent = "検索";
 
 // タグ読み込み
@@ -62,16 +63,19 @@ tag_button.addEventListener("click", async () => {
     switch (from) { 
         // タグの作成 
         case "tag_create": 
-        await tagCreate(); 
-        break; 
+            await tagCreate(); 
+            break; 
         // タグの追加処理 // 
-        case "tag_add": 
-        window.location.href = "memo_make.html";
-        break; 
+        case "tag_add_make": 
+            window.location.href = "memo_make.html";
+            break; 
+        case "tag_add_detail": 
+            window.location.href = "memo_detail.html";
+            break; 
         // タグの検索 
         case "tag_search": 
-        await tagSearch();
-        break; 
+            await tagSearch();
+            break; 
     } 
 })
 
