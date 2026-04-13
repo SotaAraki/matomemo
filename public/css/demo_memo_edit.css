@@ -1,0 +1,8 @@
+/* 検索されたアイテムが入っているdiv */
+.search-item{
+    margin: 10px 0 10px 8%;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;      /* 角丸 */
+    border: 1px solid #ccc;
+}

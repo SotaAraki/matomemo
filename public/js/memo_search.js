@@ -252,7 +252,7 @@ function attachClickEvents() {
       sessionStorage.setItem("summary", summary);
 
       // 画面遷移
-      window.location.href = "memo-detail.html";
+      window.location.href = "memo_detail.html";
     });
   });
 }
